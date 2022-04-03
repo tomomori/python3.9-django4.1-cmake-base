@@ -1,0 +1,16 @@
+version: '3.2'
+
+services:
+  app:
+    build: ./
+    container_name: 'python3.9-django3.2-base'
+    working_dir: /home/user1/app
+    command: python3 manage.py runserver 0.0.0.0:8000
+    ports:
+      - 8000:8000
+    environment:
+      - DEBUG=1
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./app:/home/user1/app
