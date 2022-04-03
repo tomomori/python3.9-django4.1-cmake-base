@@ -9,7 +9,7 @@ ENV USER user1
 ENV PYTHONUNBUFFERED 1
 
 # パッケージのインストールおよびユーザの追加
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     tzdata sudo vim \
  && rm -rf /var/lib/apt/lists/* \
  && python -m pip install --upgrade pip \
