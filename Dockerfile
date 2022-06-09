@@ -8,22 +8,26 @@ ENV TZ=Asia/Tokyo
 ENV USER user1
 ENV PYTHONUNBUFFERED 1
 
+# SSH用ファイルをコピーする
+COPY sshd_config /etc/ssh/
+COPY init.sh /usr/local/bin/
+
 # パッケージのインストールおよびユーザの追加
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    tzdata sudo vim \
+    tzdata sudo vim openssh-server \
  && rm -rf /var/lib/apt/lists/* \
  && python -m pip install --upgrade pip \
  && pip install -r requirements.txt \
  && useradd -s /bin/bash -m ${USER} --uid 1000 \
  && gpasswd -a ${USER} sudo \
- && echo "${USER}:password" | chpasswd
-
-# ユーザーの切替
-USER ${USER}
+ && echo "${USER}:password" | chpasswd \
+ && chmod u+x /usr/local/bin/init.sh \
+ && echo 'root:Docker!' | chpasswd
 
 # ソースファイルをコピー
 COPY --chown=user1:user1 ./app/ /home/user1/app/
 
-# djangoを起動
-EXPOSE 8000
-CMD python3 manage.py runserver 0.0.0.0:8000
+# django,ssh起動
+EXPOSE 8000 2222
+ENTRYPOINT ["/usr/local/bin/init.sh"]
+
