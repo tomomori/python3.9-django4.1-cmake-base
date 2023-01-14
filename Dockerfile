@@ -27,6 +27,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # SSH用ファイルをコピーする
 COPY sshd_config /etc/ssh/
 
+# ソースファイルをコピー
+COPY ./app /app
+
 # ポート公開
 EXPOSE 8000 2222
 
