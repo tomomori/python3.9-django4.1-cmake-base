@@ -1,4 +1,4 @@
-# python3.9-django3.2-base
+# python3.9-django4.1-cmake-base
 
 * これはDjangoアプリ用のDockerコンテナを作成するためのひな型
 * 以下はWindowsでコンテナを起動し、Djangoアプリを表示するための説明
@@ -10,7 +10,7 @@
 ---
 1. docker-compose.ymlをテキストエディタで開き下記の値を適宜変更する
     ~~~
-        container_name: 'python3.9-django3.2-base'
+        container_name: 'python3.9-django4.1-cmake-base'
         ports:
           - 8000:8000
     ~~~
@@ -43,14 +43,8 @@
     	docker-compose exec app /bin/bash
     ~~~
 
-* 上記6.が成功すればuser1でログインされた状態になる
-* user1でsudoが使用できるようになっている
-* user1のパスワードはpasswordになっている
 * createsuperuserおよびmigrateは未実施状態となっている
-* このファイルと同じフォルダにあるappフォルダがコンテナの/home/user1/appに接続されている
-* ソースコードを編集する場合は、上記6.を使用してコンテナに入りviで編集するか、
-  または、Windowsのエディタでappフォルダ内のファイルを編集すれば良いが、
-  現時点では、VSCodeのRemote Developmentを推奨する
+* このファイルと同じフォルダにあるappフォルダがコンテナの/appに接続されている
 ---
 
 <br>
